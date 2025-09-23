@@ -1,0 +1,14 @@
+para quitar el screen tearing, lo que haces es crear un archivo en esta ruta:
+
+sudo vim /etc/X11/xorg.conf.d/20-intel.conf
+
+y pegas el siguiente contenido:
+
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "TearFree" "true"
+EndSection
+
+y lo guardas y todo deberia de funcionar bien !!!
+

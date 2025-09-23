@@ -1,0 +1,26 @@
+[global]
+geometry = "300x100-10+10"
+timeout = 5
+
+[hint]
+timeout = 5
+
+[progress]
+format = "•"
+
+[primary]
+background = "#282a36"
+foreground = "#f8f8f2"
+
+[urgency_low]
+background = "#44475a"
+foreground = "#f8f8f2"
+
+[urgency_normal]
+background = "#6272a4"
+foreground = "#f8f8f2"
+
+[urgency_critical]
+background = "#ff5555"
+foreground = "#f8f8f2"
+
