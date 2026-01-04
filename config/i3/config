@@ -70,8 +70,8 @@ bindsym $mod+Ctrl+x exec --no-startup-id redshift -x
 # start a terminal
 bindsym $mod+Return exec /usr/bin/kitty 
 
-# start warp
-bindsym $mod+w exec /usr/bin/warp-terminal 
+# start obsidian 
+bindsym $mod+u exec flatpak run md.obsidian.Obsidian 
 
 # start brave
 bindsym $mod+b exec brave-browser 
