@@ -6,12 +6,9 @@ set $mod Mod4
 font pango:monospace 8 
 
 ############ statup apps #########################
-# polybar 
-exec_always killall polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh --forest
 
 # wallpaper
-exec --no-startup-id "feh --bg-fill /home/mint/Pictures/illustration-anime-character-rain.jpg"
+exec --no-startup-id "feh --bg-fill /home/juanes/Pictures/one.jpg"
 
 # dust notification 
 exec --no-startup-id dunst
@@ -50,8 +47,10 @@ gaps outer 4
 
 ###############################AUDIO SETTINGS##################################
 # Ajustar brillo con Ctrl + Shift + flechas
-bindsym Ctrl+Shift+Up exec xbacklight -inc 10
-bindsym Ctrl+Shift+Down exec xbacklight -dec 10
+# Ajustar brillo con Ctrl + Shift + flechas
+bindsym Ctrl+Shift+Up exec brightnessctl set +10%
+bindsym Ctrl+Shift+Down exec brightnessctl set 10%-
+
 
 # Ajustar volumen con Ctrl + Shift + flechas derecha e izquierda
 bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -212,4 +211,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
+bar {
+        status_command i3status
+}
