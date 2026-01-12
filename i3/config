@@ -1,0 +1,150 @@
+########################
+# VARIABLES
+########################
+set $mod Mod4
+set $alt Mod1
+set $term kitty
+set $menu rofi -show drun
+
+font pango:monospace 9
+
+########################
+# APARIENCIA (Sway-like)
+########################
+default_border pixel 2
+default_floating_border pixel 2
+smart_borders on
+
+gaps inner 6
+gaps outer 4
+smart_gaps on
+
+for_window [class="^.*"] title_format ""
+
+client.focused          #77dd77 #1e1e2e #ffffff #77dd77
+client.focused_inactive #2a2a2a #1e1e2e #888888 #2a2a2a
+client.unfocused        #1a1a1a #1e1e2e #666666 #1a1a1a
+client.urgent           #ff5555 #1e1e2e #ffffff #ff5555
+
+########################
+# AUTOSTART
+########################
+exec --no-startup-id feh --bg-fill /home/juanes/Pictures/one.jpg
+exec --no-startup-id dunst
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+exec --no-startup-id nm-applet
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id redshift -O 3500
+
+########################
+# TECLAS BÁSICAS
+########################
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+floating_modifier $mod
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+########################
+# LANZADOR (como sway)
+########################
+bindsym $alt+space exec $menu
+
+########################
+# APLICACIONES
+########################
+bindsym $mod+b exec brave-browser
+bindsym $mod+u exec flatpak run md.obsidian.Obsidian
+bindsym $mod+e exec nemo
+bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+p exec i3lock
+
+########################
+# AUDIO / BRILLO
+########################
+bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym Ctrl+Shift+m exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+bindsym Ctrl+Shift+Up exec brightnessctl set +10%
+bindsym Ctrl+Shift+Down exec brightnessctl set 10%-
+
+########################
+# FOCUS (vim keys)
+########################
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+########################
+# MOVER VENTANAS
+########################
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+########################
+# LAYOUT
+########################
+bindsym $alt+Shift+h split h
+bindsym $alt+Shift+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+########################
+# WORKSPACES
+########################
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+########################
+# RESIZE
+########################
+mode "resize" {
+    bindsym h resize shrink width 10 px
+    bindsym j resize grow height 10 px
+    bindsym k resize shrink height 10 px
+    bindsym l resize grow width 10 px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+########################
+# BAR
+########################
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+
+#bar {
+#    status_command i3status
+#}
+

@@ -1,45 +1,48 @@
 #!/bin/bash
-
-# restore
-cd config
-cp -r * $HOME/.config
-
-#install all apps
-sudo apt update
-sudo apt install i3 i3status dmenu
-sudo apt install vim -y 
-sudo apt install zsh -y
-sudo apt install curl -y
-sudo apt install git -y
-sudo apt install kitty -y
-sudo apt install feh -y
-sudo apt install picom -y
-sudo apt install dunst -y
-sudo apt install libnotify-bin -y
-sudo apt install flameshot -y
-sudo apt install xbacklight -y
-sudo apt install rofi -y
-sudo apt install polybar -y
-sudo apt install redshift -y
-
-#install brave-browser
-sudo apt install curl
-
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+set -e
 
 sudo apt update
 
-sudo apt install brave-browser -y
+# --- Base X11 / i3 ---
+sudo apt install -y xorg
+sudo apt install -y xinit
 
-# wallpaper
-cp wallpaper/* $HOME/Pictures
+sudo apt install -y i3
+sudo apt install -y i3status
+sudo apt install -y dmenu
 
-# install zsh 
-sudo apt install zsh -y
-sudo apt install curl -y
-sudo apt install git -y
-sudo apt install vim -y
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo apt install -y polybar
+sudo apt install -y rofi
+sudo apt install -y kitty
+sudo apt install -y picom
+
+sudo apt install -y dunst
+sudo apt install -y libnotify-bin
+
+sudo apt install -y feh
+sudo apt install -y flameshot
+sudo apt install -y redshift
+
+sudo apt install -y xbacklight
+sudo apt install -y brightnessctl
+
+sudo apt install -y pulseaudio
+sudo apt install -y pavucontrol
+
+sudo apt install -y network-manager
+sudo apt install -y network-manager-gnome
+
+sudo apt install -y i3lock
+sudo apt install -y xss-lock
+
+sudo apt install -y fonts-font-awesome
+sudo apt install -y fonts-nerd-fonts
+
+sudo apt install -y setxkbmap
+
+# --- Herramientas ---
+sudo apt install -y vim
+sudo apt install -y zsh
+sudo apt install -y curl
+sudo apt install -y git
 
