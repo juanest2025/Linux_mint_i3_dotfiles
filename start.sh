@@ -10,6 +10,8 @@ sudo apt install -y xinit
 sudo apt install -y i3
 sudo apt install -y i3status
 sudo apt install -y dmenu
+sudo apt install -y thunar
+sudo apt install -y lxappearance
 
 sudo apt install -y polybar
 sudo apt install -y rofi

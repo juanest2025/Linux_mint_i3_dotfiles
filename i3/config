@@ -1,12 +1,38 @@
-########################
+###########################################################
+# i3 Config - Estilo Sway / Mint Dark
+###########################################################
+
 # VARIABLES
-########################
 set $mod Mod4
 set $alt Mod1
 set $term kitty
 set $menu rofi -show drun
 
-font pango:monospace 9
+# FUENTE
+font pango:MesloLGS NF 10
+
+########################
+# AUTOSTART
+########################
+
+# Gestión de apariencia y sistema (GTK / Temas)
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-gnome-authentication-agent-1
+exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme 'Mint-Y-Dark'
+exec --no-startup-id gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+# Composición y estética
+#exec_always --no-startup-id pkill picom; picom --config ~/.config/picom/picom.conf
+exec --no-startup-id feh --bg-fill /home/juanes/Pictures/one.jpg
+exec --no-startup-id redshift -O 3500
+
+# Servicios de sistema
+exec --no-startup-id dunst
+exec --no-startup-id nm-applet
+#exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# Lanzamiento de Polybar
+exec --no-startup-id ~/.config/polybar/scripts/launch.sh
 
 ########################
 # APARIENCIA (Sway-like)
@@ -19,81 +45,74 @@ gaps inner 6
 gaps outer 4
 smart_gaps on
 
-for_window [class="^.*"] title_format ""
+# Eliminar títulos de ventanas
+#for_window [class="^.*"] title_format ""
 
+# Colores (Border - BG - Text - Indicator)
 client.focused          #77dd77 #1e1e2e #ffffff #77dd77
 client.focused_inactive #2a2a2a #1e1e2e #888888 #2a2a2a
 client.unfocused        #1a1a1a #1e1e2e #666666 #1a1a1a
 client.urgent           #ff5555 #1e1e2e #ffffff #ff5555
 
 ########################
-# AUTOSTART
-########################
-exec --no-startup-id feh --bg-fill /home/juanes/Pictures/one.jpg
-exec --no-startup-id dunst
-exec --no-startup-id picom --config ~/.config/picom/picom.conf
-exec --no-startup-id nm-applet
-exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id redshift -O 3500
-
-########################
-# TECLAS BÁSICAS
+# TECLAS DE SISTEMA
 ########################
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-floating_modifier $mod
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
+floating_modifier $mod
 
-########################
-# LANZADOR (como sway)
-########################
+# Lanzador y Bloqueo
 bindsym $alt+space exec $menu
-
-########################
-# APLICACIONES
-########################
-bindsym $mod+b exec brave-browser
-bindsym $mod+u exec flatpak run md.obsidian.Obsidian
-bindsym $mod+e exec nemo
-bindsym $mod+Shift+s exec flameshot gui
 bindsym $mod+p exec i3lock
 
 ########################
-# AUDIO / BRILLO
+# APLICACIONES (Atajos)
 ########################
+bindsym $mod+b exec brave-browser
+bindsym $mod+u exec flatpak run md.obsidian.Obsidian
+bindsym $mod+e exec thunar 
+bindsym $mod+Shift+s exec flameshot gui
+
+########################
+# MULTIMEDIA (Audio/Brillo)
+########################
+
+# Volumen (Ctrl + Shift + Flechas)
 bindsym Ctrl+Shift+Right exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym Ctrl+Shift+Left  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym Ctrl+Shift+m exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# Brillo (Ctrl + Shift + Flechas)
 bindsym Ctrl+Shift+Up exec brightnessctl set +10%
 bindsym Ctrl+Shift+Down exec brightnessctl set 10%-
 
 ########################
-# FOCUS (vim keys)
+# NAVEGACIÓN Y FOCO
 ########################
+
+# Cambiar foco (Vim keys y Flechas)
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-########################
-# MOVER VENTANAS
-########################
+# Mover ventanas
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 ########################
-# LAYOUT
+# LAYOUT Y WORKSPACES
 ########################
+
+# Splits y Fullscreen
 bindsym $alt+Shift+h split h
 bindsym $alt+Shift+v split v
 bindsym $mod+f fullscreen toggle
@@ -101,9 +120,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
-########################
-# WORKSPACES
-########################
+# Workspaces
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -115,6 +132,22 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+# workspaces con 
+# Cambiar a Workspace (Alt + Letra)
+bindsym $alt+q workspace 1
+bindsym $alt+w workspace 2
+bindsym $alt+e workspace 3
+bindsym $alt+r workspace 4
+bindsym $alt+t workspace 5
+bindsym $alt+y workspace 6
+bindsym $alt+u workspace 7
+bindsym $alt+i workspace 8
+bindsym $alt+o workspace 9
+
+
+
+
+# Mover a Workspaces
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -127,24 +160,14 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 ########################
-# RESIZE
+# MODO RESIZE
 ########################
-mode "resize" {
-    bindsym h resize shrink width 10 px
-    bindsym j resize grow height 10 px
-    bindsym k resize shrink height 10 px
-    bindsym l resize grow width 10 px
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-
-########################
-# BAR
-########################
-exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
-
-#bar {
-#    status_command i3status
+#mode "resize" {
+ #   bindsym h resize shrink width 10 px
+  #  bindsym j resize grow height 10 px
+   # bindsym k resize shrink height 10 px
+    #bindsym l resize grow width 10 px
+  #  bindsym Return mode "default"
+   # bindsym Escape mode "default"
 #}
-
+#bindsym $mod+r mode "resize"

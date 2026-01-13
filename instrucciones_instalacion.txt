@@ -1,0 +1,213 @@
+==========================================================
+GUÍA DEFINITIVA DE INSTALACIÓN DE I3
+Estable · Sin congelamientos · Probada en la práctica
+==========================================================
+
+Objetivo:
+Tener un entorno i3 rápido, limpio, bonito y SOBRE TODO estable.
+Esta guía evita freezes, loops y errores comunes en X11.
+
+----------------------------------------------------------
+1. BASE DEL SISTEMA (OBLIGATORIO)
+----------------------------------------------------------
+
+Antes de instalar i3, el sistema debe tener X11 funcionando bien.
+
+Paquetes base:
+sudo apt update
+sudo apt install -y \
+xorg \
+xinit \
+xserver-xorg \
+dbus-x11 \
+policykit-1
+
+Sin esto, i3 funciona de forma incompleta o inestable.
+
+----------------------------------------------------------
+2. I3 CORE (ESENCIAL)
+----------------------------------------------------------
+
+Instalar i3 y utilidades básicas:
+
+sudo apt install -y \
+i3-wm \
+i3status \
+i3lock \
+dmenu
+
+Nota:
+i3-gaps ya viene integrado en versiones modernas de i3.
+
+----------------------------------------------------------
+3. TERMINAL (MUY IMPORTANTE)
+----------------------------------------------------------
+
+Evitar al inicio:
+- kitty
+- wezterm
+(usan OpenGL y pueden congelar X11)
+
+Recomendado:
+sudo apt install -y alacritty
+
+Ultra seguro:
+sudo apt install -y xterm
+
+Usar terminales simples hasta que todo sea estable.
+
+----------------------------------------------------------
+4. FUENTES (CRÍTICO PARA BARRAS Y MENÚS)
+----------------------------------------------------------
+
+sudo apt install -y \
+fonts-font-awesome \
+fonts-noto \
+fonts-dejavu \
+fonts-jetbrains-mono \
+fonts-firacode
+
+Sin fuentes correctas, polybar y rofi fallan.
+
+----------------------------------------------------------
+5. AUDIO, RED Y NOTIFICACIONES
+----------------------------------------------------------
+
+sudo apt install -y \
+pulseaudio \
+pavucontrol \
+network-manager \
+nm-applet \
+dunst
+
+nm-applet es obligatorio en i3 para manejar red.
+
+----------------------------------------------------------
+6. POLKIT (OBLIGATORIO)
+----------------------------------------------------------
+
+sudo apt install -y polkit-gnome
+
+En la config de i3:
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-gnome-authentication-agent-1
+
+IMPORTANTE:
+NO usar exec_always con polkit.
+
+----------------------------------------------------------
+7. WALLPAPER Y LUZ NOCTURNA
+----------------------------------------------------------
+
+sudo apt install -y feh redshift
+
+En i3:
+exec --no-startup-id feh --bg-fill ~/Pictures/wall.jpg
+exec --no-startup-id redshift -O 3500
+
+----------------------------------------------------------
+8. PICOM (OPCIONAL, CON CUIDADO)
+----------------------------------------------------------
+
+Instalar:
+sudo apt install -y picom
+
+REGLAS IMPORTANTES:
+- Usar backend xrender
+- No usar blur al inicio
+- Evitar GLX hasta tener el sistema estable
+
+Picom es lo último que se configura.
+
+----------------------------------------------------------
+9. POLYBAR (CON DISCIPLINA)
+----------------------------------------------------------
+
+Instalar:
+sudo apt install -y polybar
+
+Script launch.sh correcto:
+
+#!/bin/bash
+pkill polybar
+sleep 1
+polybar main &
+
+Permisos:
+chmod +x ~/.config/polybar/scripts/launch.sh
+
+En i3:
+exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+
+NO usar exec_always con polybar.
+
+----------------------------------------------------------
+10. AUTOSTART LIMPIO Y SEGURO
+----------------------------------------------------------
+
+Orden recomendado en i3 config:
+
+exec --no-startup-id nm-applet
+exec --no-startup-id dunst
+exec --no-startup-id feh --bg-fill ~/Pictures/wall.jpg
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+
+Evitar:
+- dex al inicio
+- scripts gigantes
+- pkill sin control
+
+----------------------------------------------------------
+11. REGLAS I3 (NO EXAGERAR)
+----------------------------------------------------------
+
+MAL (causa bugs):
+for_window [class="^.*"] title_format ""
+
+BIEN:
+default_border pixel 2
+
+Menos reglas globales = más estabilidad.
+
+----------------------------------------------------------
+12. DEBUG Y SOLUCIÓN DE PROBLEMAS
+----------------------------------------------------------
+
+Ver logs de i3:
+i3 -V -d all > ~/i3.log
+
+Probar apps manualmente:
+alacritty
+picom
+polybar
+
+Si una app se congela desde terminal, esa es la causa.
+
+----------------------------------------------------------
+REGLAS DE ORO (APRENDIDAS EN PRODUCCIÓN)
+----------------------------------------------------------
+
+- Cambiar una cosa a la vez
+- Si se congela, revisar picom primero
+- Evitar GLX al inicio
+- i3 no perdona configuraciones agresivas
+- Bonito no siempre es estable
+
+----------------------------------------------------------
+CONCLUSIÓN
+----------------------------------------------------------
+
+Esta guía está pensada para:
+- i3 en X11
+- uso diario
+- cero congelamientos
+- crecimiento progresivo del setup
+
+Primero estabilidad.
+Luego estética.
+Siempre control.
+
+==========================================================
+FIN DEL ARCHIVO
+==========================================================
+

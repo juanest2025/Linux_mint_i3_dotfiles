@@ -1,0 +1,24 @@
+1. Crear el archivo de configuración
+Abre una terminal y crea el siguiente archivo (necesitarás permisos de administrador):
+
+Bash
+
+sudo nano /etc/X11/xorg.conf.d/90-touchpad.conf
+2. Pegar la configuración
+Copia y pega este bloque, que traduce exactamente tus opciones de Sway a X11:
+
+Plaintext
+
+Section "InputClass"
+    Identifier "touchpad"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "TappingButtonMap" "lrm"
+    Option "NaturalScrolling" "true"
+    Option "ScrollMethod" "twofinger"
+    Option "DisableWhileTyping" "true"
+    Option "MiddleEmulation" "true"
+    Option "AccelProfile" "adaptive"
+    Option "AccelSpeed" "0.2"
+EndSection
